@@ -21,7 +21,7 @@ async function create(sunan_tirmidzi) {
     `INSERT INTO sunan_tirmidzi 
     (kitab, arab, terjemah) 
     VALUES 
-    (${sunan_tirmidzi.kitab}, ${sunan_tirmidzi.arab}, ${sunan_tirmidzi.terjemah}`
+    ('${sunan_tirmidzi.kitab}', '${sunan_tirmidzi.arab}', '${sunan_tirmidzi.terjemah}'`
   );
 
   let message = "Error in creating Sunan Tirmidzi ";
@@ -36,7 +36,7 @@ async function create(sunan_tirmidzi) {
 async function update(id, sunan_tirmidzi) {
   const result = await db.query(
     `UPDATE sunan_tirmidzi 
-    SET kitab="${sunan_tirmidzi.kitab}", arab=${sunan_tirmidzi.arab}, terjemah=${sunan_tirmidzi.terjemah}
+    SET kitab="${sunan_tirmidzi.kitab}", arab="${sunan_tirmidzi.arab}", terjemah="${sunan_tirmidzi.terjemah}"
     WHERE id=${id}`
   );
 

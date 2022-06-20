@@ -18,7 +18,7 @@ async function get(page = 1) {
 
 async function create(shahih_muslim) {
   const result = await db.query(
-    `INSERT INTO shahih_muslim(kitab, arab, terjemah) VALUES(${shahih_muslim.kitab}, ${shahih_muslim.arab}, ${shahih_muslim.terjemah})`
+    `INSERT INTO shahih_muslim(kitab, arab, terjemah) VALUES('${shahih_muslim.kitab}', '${shahih_muslim.arab}', '${shahih_muslim.terjemah}')`
   );
 
   let message = "Error in creating Shahih Muslim ";
@@ -32,7 +32,7 @@ async function create(shahih_muslim) {
 async function update(id, shahih_muslim) {
   const result = await db.query(
     `UPDATE shahih_muslim 
-    SET kitab="${shahih_muslim.kitab}", arab=${shahih_muslim.arab}, terjemah=${shahih_muslim.terjemah}
+    SET kitab="${shahih_muslim.kitab}", arab="${shahih_muslim.arab}", terjemah="${shahih_muslim.terjemah}"
     WHERE id=${id}`
   );
 

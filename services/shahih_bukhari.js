@@ -21,7 +21,7 @@ async function create(shahih_bukhari) {
     `INSERT INTO shahih_bukhari 
     (kitab, arab, terjemah) 
     VALUES 
-    (${shahih_bukhari.kitab}, ${shahih_bukhari.arab}, ${shahih_bukhari.terjemah}`
+    ('${shahih_bukhari.kitab}', '${shahih_bukhari.arab}', '${shahih_bukhari.terjemah}'`
   );
 
   let message = "Error in creating Shahih Bukhari ";
@@ -36,7 +36,7 @@ async function create(shahih_bukhari) {
 async function update(id, shahih_bukhari) {
   const result = await db.query(
     `UPDATE shahih_bukhari 
-    SET kitab="${shahih_bukhari.kitab}", arab=${shahih_bukhari.arab}, terjemah=${shahih_bukhari.terjemah}
+    SET kitab="${shahih_bukhari.kitab}", arab="${shahih_bukhari.arab}", terjemah="${shahih_bukhari.terjemah}"
     WHERE id=${id}`
   );
 
