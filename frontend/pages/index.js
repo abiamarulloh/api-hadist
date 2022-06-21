@@ -24,7 +24,17 @@ function HomePage() {
     <Header></Header>
     
     <div>Welcome to Next.js!</div>
-
+    <ul>
+      {data.data.map(function(object, i){
+        return (
+          <li key={i}>
+            <p>{object.kitab}</p>
+            <p>{object.arab}</p>
+            <p>{object.terjemah}</p>
+          </li>
+        )
+      })}
+    </ul>
     <Footer></Footer>
     </>
 )
