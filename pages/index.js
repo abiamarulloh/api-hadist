@@ -8,7 +8,7 @@ function HomePage() {
 
   useEffect(() => {
     setLoading(true);
-    fetch('https://jsonplaceholder.typicode.com/todos')
+    fetch('https://hadist-app-backend.herokuapp.com/hadist/shahih-muslim')
       .then((res) => res.json())
       .then((data) => {
         setData(data)
