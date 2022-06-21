@@ -1,4 +1,4 @@
-# hadist-app
+# hadist-app With Ai
 Tugas UAS Smt 4 STMIK AB
 
 Step menjalakan Project:
