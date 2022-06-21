@@ -1,9 +1,12 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 const shahih_muslim = require("./routes/shahih_muslim");
 const shahih_bukhari = require("./routes/shahih_bukhari");
 const sunan_tirmidzi = require("./routes/sunan_tirmidzi");
+const cors = require('cors')
+
+app.use(cors())
 app.use(express.json());
 app.use(
   express.urlencoded({
