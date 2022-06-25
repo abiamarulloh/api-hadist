@@ -2,13 +2,15 @@ const db = require("./db");
 const helper = require("../helper");
 const config = require("../config");
 
-async function get(page = 1) {
-  const offset = helper.getOffset(page, config.listPerPage);
+async function get(params) {
+  const offset = helper.getOffset(params.page, config.listPerPage);
+  const queryNLP = `WHERE MATCH(terjemah) AGAINST('${params.search}' IN NATURAL LANGUAGE MODE)`
   const rows = await db.query(
-    `SELECT * FROM sunan_tirmidzi LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM sunan_tirmidzi ${params.search ? queryNLP : ''} LIMIT ${offset},${config.listPerPage}`
   );
+
   const data = helper.emptyOrRows(rows);
-  const meta = { page };
+  const meta = { page: params.page };
 
   return {
     data,

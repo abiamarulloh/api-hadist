@@ -3,15 +3,15 @@
 const config = {
   db: {
     /* don't expose password or any sensitive info, done only for demo */
-    // host: "localhost",
-    // user: "root",
-    // password: "",
-    // database: "apihadits",
+    host: "localhost",
+    user: "root",
+    password: "",
+    database: "apihadits",
     
-    host: "us-cdbr-east-05.cleardb.net",
-    user: "b9d0204b9d5eeb",
-    password: "0f95c8cf",
-    database: "heroku_2742ddf698ff267",
+    // host: "us-cdbr-east-05.cleardb.net",
+    // user: "b9d0204b9d5eeb",
+    // password: "0f95c8cf",
+    // database: "heroku_2742ddf698ff267",
   },
   listPerPage: 10,
 };

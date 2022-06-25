@@ -2,10 +2,15 @@ const express = require("express");
 const router = express.Router();
 const shahih_muslim = require("../services/shahih_muslim");
 
+
 /* GET hadist. */
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await shahih_muslim.get(req.query.page));
+    let params = {
+      page: req.params.page,
+      search: req.query.search
+    }
+    res.json(await shahih_muslim.get(params));
   } catch (err) {
     console.error(`Error while getting Shahih Muslim `, err.message);
     next(err);

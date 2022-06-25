@@ -5,7 +5,11 @@ const sunan_tirmidzi = require("../services/sunan_tirmidzi");
 /* GET hadist. */
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await sunan_tirmidzi.get(req.query.page));
+    let params = {
+      page: req.params.page,
+      search: req.query.search
+    }
+    res.json(await sunan_tirmidzi.get(params));
   } catch (err) {
     console.error(`Error while getting Sunan Tirmidzi `, err.message);
     next(err);

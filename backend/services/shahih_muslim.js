@@ -2,19 +2,22 @@ const db = require("./db");
 const helper = require("../helper");
 const config = require("../config");
 
-async function get(page = 1) {
-  const offset = helper.getOffset(page, config.listPerPage);
+
+async function get(params) {
+  const offset = helper.getOffset(params.page, config.listPerPage);
+  const queryNLP = `WHERE MATCH(terjemah) AGAINST('${params.search}' IN NATURAL LANGUAGE MODE)`
   const rows = await db.query(
-    `SELECT * FROM shahih_muslim LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM shahih_muslim ${params.search ? queryNLP : ''} LIMIT ${offset},${config.listPerPage}`
   );
   const data = helper.emptyOrRows(rows);
-  const meta = { page };
+  const meta = { page: params.page };
 
   return {
     data,
     meta,
   };
 }
+
 
 async function create(shahih_muslim) {
   const result = await db.query(

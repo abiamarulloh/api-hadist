@@ -5,7 +5,11 @@ const shahih_bukhari = require("../services/shahih_bukhari");
 /* GET hadist. */
 router.get("/", async function (req, res, next) {
   try {
-    res.json(await shahih_bukhari.get(req.query.page));
+     let params = {
+      page: req.params.page,
+      search: req.query.search
+    }
+    res.json(await shahih_bukhari.get(params));
   } catch (err) {
     console.error(`Error while getting Shahih Bukhari `, err.message);
     next(err);
