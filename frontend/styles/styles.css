@@ -9,9 +9,18 @@ body {
   color: black;
 }
 
-body {
+.container {
   width: 80%;
   height: 100vh;
   position: relative;
   background-color: #F5F5F5;
+}
+
+.main {
+  margin-top: 20px;
+}
+
+.input, input::placeholder {
+  font-size: 20px;
+  color: #B5B3B2;
 }
