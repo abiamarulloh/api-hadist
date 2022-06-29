@@ -75,48 +75,49 @@ function HomePage() {
 
   return (
     <>
-
-    <div className={styles.container}>
-      <div className={styles.listTypeHadist}>
-        <div className={styles.listTypeHadistItem} onClick={(e) => changeHadist('shahih-bukhari')}>
-          Hadist Shahih Bukhari
+    <div className={styles.home}>
+      <div className={styles.container}>
+        <div className={styles.listTypeHadist}>
+          <div className={styles.listTypeHadistItem} onClick={(e) => changeHadist('shahih-bukhari')}>
+            Hadist Shahih Bukhari
+          </div>
+          <div className={styles.listTypeHadistItem} onClick={(e) => changeHadist('shahih-muslim')}>
+            Hadist Shahih Muslim
+          </div>
+          <div className={styles.listTypeHadistItem} onClick={(e) => changeHadist('sunan-tirmidzi')}>
+            Hadist Sunan Tirmidzi
+          </div>
         </div>
-         <div className={styles.listTypeHadistItem} onClick={(e) => changeHadist('shahih-muslim')}>
-          Hadist Shahih Muslim
-        </div>
-         <div className={styles.listTypeHadistItem} onClick={(e) => changeHadist('sunan-tirmidzi')}>
-          Hadist Sunan Tirmidzi
-        </div>
-      </div>
 
-      <div className={styles.hadistListByType}>
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <label>Cari Hadist &nbsp;
-            <input 
-              type="text" 
-              value={dataSearch}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </label>
-          <button type="submit">Cari Hadist</button>
-        </form>
+        <div className={styles.hadistListByType}>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <label>Cari Hadist &nbsp;
+              <input 
+                type="text" 
+                value={dataSearch}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </label>
+            <button type="submit">Cari Hadist</button>
+          </form>
 
-        {
-          dataSearch ? <p>Hasil Pencarian untuk : {dataSearch}</p> : ''
-        }
+          {
+            dataSearch ? <p>Hasil Pencarian untuk : {dataSearch}</p> : ''
+          }
 
-        <div className={styles.listItemScrollY}>
-          <ul>
-            {data.data.map(function(object, i){
-              return (
-                <li key={i}>
-                  <p><u>{textConverter(object.kitab)}</u></p>
-                  <p>{object.arab}</p>
-                  <p>{object.terjemah}</p>
-                </li>
-              )
-            })}
-          </ul>
+          <div className={styles.listItemScrollY}>
+            <ul>
+              {data.data.map(function(object, i){
+                return (
+                  <li key={i}>
+                    <p><u>{textConverter(object.kitab)}</u></p>
+                    <p>{object.arab}</p>
+                    <p>{object.terjemah}</p>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
