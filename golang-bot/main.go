@@ -2,7 +2,9 @@ package main
 
 import (
 	"hadist-bot/libs/env"
+	"hadist-bot/libs/env/qa"
 	"log"
+	"strings"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -41,16 +43,40 @@ func main() {
 		// so we leave it empty.
 		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
 
-		// Extract the command from the Message.
-		switch update.Message.Command() {
-		case "help":
-			msg.Text = "I understand /sayhi and /status."
-		case "sayhi":
-			msg.Text = "Hi :)"
-		case "status":
-			msg.Text = "I'm ok."
-		default:
-			msg.Text = "I don't know that command"
+		var userCommand = update.Message.Command()
+		var userText = update.Message.Text
+
+		if userCommand != "" {
+			if userCommand == "help" {
+				msg.Text = "I understand /sayhi and /status."
+			} else if userCommand == "sayhi" {
+				msg.Text = "Hi :)"
+			} else if userCommand == "status" {
+				msg.Text = "I'm ok."
+			} else {
+				msg.Text = "I don't know that command"
+			}
+		} else if userText != "" {
+			templates := qa.Template
+			for _, val := range templates {
+				if len(val.Question) > 1 {
+					// loop sample text
+					for _, valqa := range val.Question {
+						if valqa == userText || strings.Contains(valqa, userText) {
+							msg.Text = val.Answer
+							break
+						}
+					}
+				} else {
+					if strings.Contains(val.Question[0], userText) || val.Question[0] == userText {
+						msg.Text = val.Answer
+						break
+					}
+				}
+			}
+			if msg.Text == "" {
+				msg.Text = "Mohon maaf, saya belum mengerti apa yang kamu maksud, coba ketik 'hai' atau ketik 'hadist'"
+			}
 		}
 
 		if _, err := bot.Send(msg); err != nil {
