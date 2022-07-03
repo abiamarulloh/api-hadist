@@ -62,13 +62,13 @@ func main() {
 				if len(val.Question) > 1 {
 					// loop sample text
 					for _, valqa := range val.Question {
-						if valqa == userText || strings.Contains(valqa, userText) {
+						if valqa == userText || strings.Contains(strings.ToLower(valqa), strings.ToLower(userText)) {
 							msg.Text = val.Answer
 							break
 						}
 					}
 				} else {
-					if strings.Contains(val.Question[0], userText) || val.Question[0] == userText {
+					if strings.Contains(strings.ToLower(val.Question[0]), strings.ToLower(userText)) || strings.ToLower(val.Question[0]) == strings.ToLower(userText) {
 						msg.Text = val.Answer
 						break
 					}

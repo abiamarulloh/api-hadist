@@ -10,7 +10,15 @@ var Template []Qa = []Qa{
 		Answer:   "Kamu bisa memasukkan topik hadist yang akan di cari",
 	},
 	{
-		Question: []string{"hadist", "hadis", "hadits", "hadst", "hatsi"},
+		Question: []string{"muslim", "moslem", "muslimm", "sahih muslim", "muslimin"},
+		Answer:   "Kamu bisa memasukkan topik hadist yang akan di cari",
+	},
+	{
+		Question: []string{"tirmidzi", "trmidzi", "tirmidz", "tirmizi", "tirmisi", "tirmizzi"},
+		Answer:   "Kamu bisa memasukkan topik hadist yang akan di cari",
+	},
+	{
+		Question: []string{"hadist", "hadis", "hadits", "hadst", "hatsi", "haidst", "haidts"},
 		Answer:   "Hadist yang bisa kamu cari: Hadist Sahih Bukhori, Hadist Sahih Muslim, Hadis Sahih Tirmidzi",
 	},
 	{
