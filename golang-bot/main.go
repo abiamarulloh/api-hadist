@@ -2,6 +2,7 @@ package main
 
 import (
 	"hadist-bot/libs/env"
+	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -36,22 +37,24 @@ func main() {
 			continue
 		}
 
-		// Now that we know we've gotten a new message, we can construct a
-		// reply! We'll take the Chat ID and Text from the incoming message
-		// and use it to create a new message.
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
-		// We'll also say that this message is a reply to the previous message.
-		// For any other specifications than Chat ID or Text, you'll need to
-		// set fields on the `MessageConfig`.
-		msg.ReplyToMessageID = update.Message.MessageID
+		// Create a new MessageConfig. We don't have text yet,
+		// so we leave it empty.
+		msg := tgbotapi.NewMessage(update.Message.Chat.ID, "")
 
-		// Okay, we're sending our message off! We don't care about the message
-		// we just sent, so we'll discard it.
+		// Extract the command from the Message.
+		switch update.Message.Command() {
+		case "help":
+			msg.Text = "I understand /sayhi and /status."
+		case "sayhi":
+			msg.Text = "Hi :)"
+		case "status":
+			msg.Text = "I'm ok."
+		default:
+			msg.Text = "I don't know that command"
+		}
+
 		if _, err := bot.Send(msg); err != nil {
-			// Note that panics are a bad way to handle errors. Telegram can
-			// have service outages or network errors, you should retry sending
-			// messages or more gracefully handle failures.
-			panic(err)
+			log.Panic(err)
 		}
 	}
 }
