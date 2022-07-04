@@ -57,26 +57,34 @@ func main() {
 				msg.Text = "I don't know that command"
 			}
 		} else if userText != "" {
-			templates := qa.Template
-			for _, val := range templates {
-				if len(val.Question) > 1 {
-					// loop sample text
-					for _, valqa := range val.Question {
-						if valqa == userText || strings.Contains(strings.ToLower(valqa), strings.ToLower(userText)) {
+			// msg ==
+			if userText == "hai" || userText == "hi" || userText == "halo" || userText == "pagi" || userText == "siang" || userText == "sore" || userText == "malam" {
+				msg.Text = "Hai :) " + "\n\n" + qa.MainMenu
+			} else if userText == "menu" {
+				msg.Text = qa.MainMenu
+			} else {
+				templates := qa.Template
+				for _, val := range templates {
+					if len(val.Question) > 1 {
+						// loop sample text
+						for _, valqa := range val.Question {
+							if valqa == userText || strings.Contains(strings.ToLower(userText), strings.ToLower(valqa)) {
+								msg.Text = val.Answer
+								break
+							}
+						}
+					} else {
+						if strings.Contains(strings.ToLower(userText), strings.ToLower(val.Question[0])) || strings.ToLower(val.Question[0]) == strings.ToLower(userText) {
 							msg.Text = val.Answer
 							break
 						}
 					}
-				} else {
-					if strings.Contains(strings.ToLower(val.Question[0]), strings.ToLower(userText)) || strings.ToLower(val.Question[0]) == strings.ToLower(userText) {
-						msg.Text = val.Answer
-						break
-					}
+				}
+				if msg.Text == "" {
+					msg.Text = "Mohon maaf, saya belum mengerti apa yang kamu maksud, coba ketik 'hai' atau ketik 'menu' untuk melihat menu utama"
 				}
 			}
-			if msg.Text == "" {
-				msg.Text = "Mohon maaf, saya belum mengerti apa yang kamu maksud, coba ketik 'hai' atau ketik 'hadist'"
-			}
+
 		}
 
 		if _, err := bot.Send(msg); err != nil {
