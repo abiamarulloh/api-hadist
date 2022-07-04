@@ -2,6 +2,7 @@ package main
 
 import (
 	"hadist-bot/libs/env"
+	"hadist-bot/libs/env/api"
 	"hadist-bot/libs/env/qa"
 	"log"
 	"strings"
@@ -62,6 +63,29 @@ func main() {
 				msg.Text = "Hai :) " + "\n\n" + qa.MainMenu
 			} else if userText == "menu" {
 				msg.Text = qa.MainMenu
+			} else if userText == "1" || userText == "nama anggota kelompok" || userText == "anggota kelompok" || userText == "nama anggota" {
+				msg.Text = qa.MenuSatu
+			} else if userText == "hadist" || userText == "hadis" || userText == "hadits" || userText == "hadts" || userText == "2" || userText == "dua" {
+				msg.Text = qa.MenuDua
+			} else if userText == "cari hadits" || userText == "temukan" || userText == "temukan hadits" || userText == "temukan hadts" || userText == "3" || userText == "tiga" {
+				msg.Text = qa.MenuTiga
+			} else if (strings.Contains(strings.ToLower(userText), "hadits") || strings.Contains(strings.ToLower(userText), "hadis")) && (strings.Contains(strings.ToLower(userText), "tentang") || strings.Contains(strings.ToLower(userText), "mengenai")) {
+				log.Println("masuk tentang")
+				if strings.Contains(userText, "tentang") {
+					splits := strings.Split(userText, "tentang")
+					search := splits[1]
+					msg.Text = api.Search(search)
+					if len(msg.Text) > 4000 {
+						msg.Text = msg.Text[:4000]
+					}
+				} else {
+					splits := strings.Split(userText, "mengenai")
+					search := splits[1]
+					msg.Text = api.Search(search)
+					if len(msg.Text) > 4000 {
+						msg.Text = msg.Text[:4000]
+					}
+				}
 			} else {
 				templates := qa.Template
 				for _, val := range templates {
