@@ -6,11 +6,11 @@ export default function App({ Component, pageProps }) {
 
    return (
        <>
-            <Header></Header>
+            <Header />
             <div className='main'>
                 <Component {...pageProps} />
             </div>
-            <Footer></Footer>
+            <Footer />
        </>
    )
 }

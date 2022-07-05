@@ -33,7 +33,7 @@ function HomePage() {
   }
 
   const getHadist = (params) => {
-    fetch(`http://localhost:3000/hadist/${params.hadist}?page=${params.page}&search=${params.search}`)
+    fetch(`/api/hadist/${params.hadist}?page=${params.page}&search=${params.search}`)
     .then((res) => res.json())
     .then((data) => {
       setData(data)
