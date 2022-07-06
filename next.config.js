@@ -1,10 +1,14 @@
-module.exports = {
-    async rewrites() {
-        return [
-          {
-            source: '/api/:path*',
-            destination: 'http://localhost:3000/api/:path*',
-          },
-        ]
+module.exports = () => {
+  const rewrites = () => {
+    return [
+      {
+        source: "/api/:path*",
+        // destination: "http://localhost:3000/api/:path*", // for local
+        destination: "https://hadist-app-backend.herokuapp.com/api/:path*", // for prod
       },
+    ];
   };
+  return {
+    rewrites,
+  };
+};
