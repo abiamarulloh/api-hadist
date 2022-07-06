@@ -5,6 +5,9 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "@babel/core": "^7.18.6",
     "@babel/helper-module-imports": "^7.18.6",
