@@ -1,15 +1,11 @@
-import styles from './index.module.css';
+import styles from "./index.module.css";
 
 function ProfilePage() {
   return (
     <>
-
-    <div className={styles.container}>
-      Ini Profile
-    </div>
-
+      <div className={styles.container}>Ini Profile</div>
     </>
-)
+  );
 }
 
-export default ProfilePage
+export default ProfilePage;

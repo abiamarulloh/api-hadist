@@ -1,33 +1,24 @@
-import styles from './layouts.module.css';
-import Link from 'next/link'
+import styles from "./layouts.module.css";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 export default function header() {
-    return (
-      <>
-        <div className={styles.header}>
-          <ul className={styles.ul}>
-            <li className={styles.liLeft}>
-              <Link href="/">
-                <a className={styles.headerLogo}>HADIST</a>
-              </Link>
-            </li>
-            <li className={styles.liRight}>
-              <Link href="/contact">
-                <a className={styles.link}>Contact Us</a>
-              </Link>
-            </li>
-            <li className={styles.liRight}>
-              <Link href="/profile">
-                <a className={styles.link}>Profile</a>
-              </Link>
-            </li>
-            <li className={styles.liRight}>
-              <Link href="/">
-                <a className={styles.link}>Home</a>
-              </Link>
-            </li>
-          </ul>
+  return (
+    <>
+      <div className={styles.header}>
+        <div className={styles.header_logo}>
+          <Link href="/">
+            <a className={styles.link}>Hadist App</a>
+          </Link>
         </div>
-      </>
-    )
+
+        <div className={styles.header_nav}>
+          <Link href="/notifications">
+            <FontAwesomeIcon icon={regular("bell")} size="lg" />
+          </Link>
+        </div>
+      </div>
+    </>
+  );
 }
