@@ -2,13 +2,14 @@ package api
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"log"
 	"net/http"
 	"strings"
 )
 
-var Url string = "http://hadist-app-backend.herokuapp.com/hadist/shahih-muslim?search="
+var Url string = "https://hadist-app-backend.herokuapp.com/api/hadist/shahih-muslim?search="
 
 type ResponseApi struct {
 	Data []Hadits    `json:"data"`
@@ -22,12 +23,12 @@ type Hadits struct {
 	Terjemah string `json:"terjemah"`
 }
 
-func Search(keyword string) string {
+func Search(keyword string) (Hadits, error) {
 	var url = Url + strings.Trim(keyword, " ")
 	log.Println(keyword, url)
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
@@ -41,8 +42,8 @@ func Search(keyword string) string {
 	log.Println("data: ")
 
 	if len(data.Data) > 0 {
-		return data.Data[0].Kitab + "\n\n" + data.Data[0].Arab + "\n\n" + data.Data[0].Terjemah
+		return data.Data[0], nil
 	} else {
-		return "Mohon maaf hadits yang kamu cari tidak ditemukan"
+		return Hadits{}, errors.New("Mohon maaf hadits yang kamu cari tidak ditemukan")
 	}
 }
