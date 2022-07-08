@@ -28,7 +28,7 @@ func Search(keyword string) (Hadits, error) {
 	log.Println(keyword, url)
 	resp, err := http.Get(url)
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
@@ -44,6 +44,6 @@ func Search(keyword string) (Hadits, error) {
 	if len(data.Data) > 0 {
 		return data.Data[0], nil
 	} else {
-		return data.Data[0], errors.New("Mohon maaf hadits yang kamu cari tidak ditemukan")
+		return Hadits{}, errors.New("Mohon maaf hadits yang kamu cari tidak ditemukan")
 	}
 }
