@@ -4,9 +4,11 @@ const config = require("../config");
 
 async function get(params) {
   const offset = helper.getOffset(params.page, config.listPerPage);
-  const queryNLP = `WHERE MATCH(terjemah) AGAINST('${params.search}' IN NATURAL LANGUAGE MODE)`
+  const queryNLP = `WHERE MATCH(terjemah) AGAINST("${params.search}" IN NATURAL LANGUAGE MODE)`;
   const rows = await db.query(
-    `SELECT * FROM sunan_tirmidzi ${params.search ? queryNLP : ''} LIMIT ${offset},${config.listPerPage}`
+    `SELECT * FROM sunan_tirmidzi ${
+      params.search ? queryNLP : ""
+    } LIMIT ${offset},${config.listPerPage}`
   );
 
   const data = helper.emptyOrRows(rows);

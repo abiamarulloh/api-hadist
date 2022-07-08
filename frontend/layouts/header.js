@@ -9,7 +9,7 @@ export default function header() {
       <div className={styles.header}>
         <div className={styles.header_logo}>
           <Link href="/">
-            <a className={styles.link}>Hadist App</a>
+            <a className={styles.link}>hadits App</a>
           </Link>
         </div>
 

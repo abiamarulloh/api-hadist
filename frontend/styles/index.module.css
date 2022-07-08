@@ -12,7 +12,7 @@
 
 .home_training {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   grid-gap: 20px;
 }
 
@@ -58,6 +58,14 @@
   margin-bottom: 10px;
 }
 
+.home_text_title_search {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;  
+  padding: 10px;
+  text-align: center;
+}
+
 .home_suggestion {
   display: flex;
   overflow: auto;
@@ -83,7 +91,7 @@
   color: #ffffff;
 }
 
-.home_wrapper_hadist_action {
+.home_wrapper_hadits_action {
   margin-bottom: 30px;
 }
 
@@ -93,6 +101,16 @@
   grid-gap: 20px;
 }
 
+.home_action_filter_search {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
 .home_action_filter_item {
   padding: 20px;
   background-color: #eaeaea;
@@ -100,17 +118,63 @@
   cursor: default;
 }
 
+.home_action_filter_item_search {
+  background-color: #1f5ada;
+  color: #ffffff;
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100vh;
+}
+
+.home_action_filter_wrap_item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.home_action_filter_input {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
+  justify-content: center;
+  grid-gap: 20px;
+  padding: 10px;
+}
+
+.home_action_filter_input input {
+  height: 40px;
+  border: 1px solid #eaeaea;
+  border-radius: 100px;
+  padding: 0 10px;
+  font-size: 16px;
+  font-weight: 500;
+  outline: none;
+}
+
+.home_action_filter_input button {
+  width: 100%;
+  height: 40px;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  padding: 0 10px;
+  font-size: 16px;
+  font-weight: 700;
+  outline: none;
+}
+
 .home_action_filter_item_active {
   background-color: #1f5ada;
   color: white;
 }
 
-.home_hadist_popular {
+.home_hadits_popular {
   max-width: 100%;
   height: 100%;
 }
 
-.home_hadist_popular_item {
+.home_hadits_popular_item {
   height: 100%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 15px;
@@ -119,15 +183,15 @@
   cursor: default;
 }
 
-.home_hadist_popular_item:hover {
+.home_hadits_popular_item:hover {
   background-color: rgba(226, 235, 255, 0.555);
 }
 
-.home_hadist_popular_item_type {
+.home_hadits_popular_item_type {
   font-weight: 700;
 }
 
-.home_hadist_popular_item_title {
+.home_hadits_popular_item_title {
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
@@ -140,6 +204,7 @@
   margin-bottom: 5px;
 }
 
+
 @media only screen and (min-width: 600px) {
   .home_training_item {
     display: grid;
@@ -148,13 +213,13 @@
     cursor: pointer;
   }
 
-  .home_hadist_popular {
+  .home_hadits_popular {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-gap: 20px;
   }
 
-  .home_hadist_popular_item {
+  .home_hadits_popular_item {
     height: initial;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 15px;
@@ -163,7 +228,7 @@
     cursor: pointer;
   }
 
-  .home_hadist_popular_item_title {
+  .home_hadits_popular_item_title {
     font-weight: 400;
     font-size: 12px;
     line-height: 18px;
