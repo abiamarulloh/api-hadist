@@ -22,4 +22,22 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.wrapLoading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
 
+.loading {
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 50px);
+  right: calc(50% + 50px);
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+}
