@@ -3,16 +3,19 @@
 const config = {
   db: {
     /* don't expose password or any sensitive info, done only for demo */
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "apihadits",
+    // Localhost
+    // host: "localhost",
+    // user: "root",
+    // password: "",
+    // database: "apihadits",
     
+    // Heroku
     // host: "us-cdbr-east-05.cleardb.net",
     // user: "b9d0204b9d5eeb",
     // password: "0f95c8cf",
     // database: "heroku_2742ddf698ff267",
 
+    // Server amarabi.com
     host: "localhost",
     user: "amarabic_root",
     password: "h9T3@BNA5JLC9ky",
