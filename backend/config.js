@@ -12,6 +12,11 @@ const config = {
     // user: "b9d0204b9d5eeb",
     // password: "0f95c8cf",
     // database: "heroku_2742ddf698ff267",
+
+    host: "localhost",
+    user: "amarabic_root",
+    password: "h9T3@BNA5JLC9ky",
+    database: "amarabic_hadits",
   },
   listPerPage: 10,
 };
