@@ -20,6 +20,15 @@ async function get(params) {
   };
 }
 
+async function getDetailHadits(id) {
+  const rows = await db.query(
+    `SELECT * FROM sunan_tirmidzi WHERE id=${id}`
+  );
+
+  const data = rows ? rows[0] : {};
+  return data;
+}
+
 async function create(sunan_tirmidzi) {
   const result = await db.query(
     `INSERT INTO sunan_tirmidzi 
@@ -67,6 +76,7 @@ async function remove(id) {
 
 module.exports = {
   get,
+  getDetailHadits,
   create,
   update,
   remove,

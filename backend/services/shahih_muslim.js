@@ -19,6 +19,14 @@ async function get(params) {
   };
 }
 
+async function getDetailHadits(id) {
+  const rows = await db.query(
+    `SELECT * FROM shahih_muslim WHERE id=${id}`
+  );
+  const data = rows ? rows[0] : {};
+  return data;
+}
+
 async function create(shahih_muslim) {
   const result = await db.query(
     `INSERT INTO shahih_muslim(kitab, arab, terjemah) VALUES('${shahih_muslim.kitab}', '${shahih_muslim.arab}', '${shahih_muslim.terjemah}')`
@@ -62,6 +70,7 @@ async function remove(id) {
 
 module.exports = {
   get,
+  getDetailHadits,
   create,
   update,
   remove,

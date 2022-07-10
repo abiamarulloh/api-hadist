@@ -18,6 +18,14 @@ async function get(params) {
   };
 }
 
+async function getDetailHadits(id) {
+  const rows = await db.query(
+    `SELECT * FROM shahih_bukhari WHERE id=${id}`
+  );
+ const data = rows ? rows[0] : {};
+  return data;
+}
+
 async function create(shahih_bukhari) {
   const result = await db.query(
     `INSERT INTO shahih_bukhari 
@@ -65,6 +73,7 @@ async function remove(id) {
 
 module.exports = {
   get,
+  getDetailHadits,
   create,
   update,
   remove,

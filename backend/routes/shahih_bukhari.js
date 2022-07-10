@@ -6,12 +6,21 @@ const shahih_bukhari = require("../services/shahih_bukhari");
 router.get("/", async function (req, res, next) {
   try {
      let params = {
-      page: req.params.page,
+      page: req.query.page,
       search: req.query.search
     }
     res.json(await shahih_bukhari.get(params));
   } catch (err) {
     console.error(`Error while getting Shahih Bukhari `, err.message);
+    next(err);
+  }
+});
+
+router.get("/:id", async function (req, res, next) {
+  try {
+    res.json(await shahih_bukhari.getDetailHadits(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting Shahih Bukhari detail`, err.message);
     next(err);
   }
 });

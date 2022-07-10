@@ -1,10 +1,10 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from 'next/link';
 import { useEffect, useState } from "react";
 import styles from "../styles/index.module.css";
 
 function HomePage() {
-  const [data, setData] = useState(null);
+  const [dataHadits, setDataHadits] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [dataSearch, setSearch] = useState("");
   const [dataHaditsType, setHaditsType] = useState("shahih-bukhari");
@@ -20,6 +20,7 @@ function HomePage() {
     "hadits tentang bercerai",
   ];
   const [isShowModalSearch, setShowModalSearch] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const listHadits = [
     {
@@ -39,15 +40,12 @@ function HomePage() {
   useEffect(() => {
     setLoading(true);
     handlehaditsOnLoad();
-
-    // Initialize
-    setSuggestion("hadits tentang berqur'ban");
   }, []);
 
   const handlehaditsOnLoad = () => {
     const params = {
       hadits: dataHaditsType,
-      page: "",
+      page: 1,
       search: dataSearch,
     };
     getHadits(params);
@@ -58,10 +56,15 @@ function HomePage() {
 
     const params = {
       hadits: dataHaditsType,
-      page: "",
+      page: 1,
       search: dataSearch,
     };
     getHadits(params);
+    window.scrollTo({
+      top: window.innerHeight + 200,
+      left: 100,
+      behavior: 'smooth'
+    });
   };
 
   const getHadits = (params) => {
@@ -70,7 +73,7 @@ function HomePage() {
     )
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
+        setDataHadits(data);
         setLoading(false);
         setShowModalSearch(false);
       });
@@ -79,18 +82,19 @@ function HomePage() {
   const changeHadits = (haditsType) => {
     const params = {
       hadits: haditsType,
-      page: "",
+      page: 1,
       search: dataSearch,
     };
 
     getHadits(params);
     setHaditsType(haditsType);
+    setCurrentPage(1)
   };
 
   const changeHaditsSuggestion = (suggestion) => {
     const params = {
       hadits: dataHaditsType,
-      page: "",
+      page: 1,
       search: suggestion,
     };
 
@@ -119,11 +123,33 @@ function HomePage() {
     setSearch("");
     const params = {
       hadits: dataHaditsType,
-      page: "",
+      page: 1,
       search: "",
     };
     getHadits(params);
+    window.scrollTo({
+      top: window.innerHeight,
+      left: 100,
+      behavior: 'smooth'
+    });
   };
+
+  const handleChangePagination = (page, type) => {
+    if(type === 'previous' && page > 1) {
+      page--
+    } else if(type === 'next') {
+      page++
+    }
+    
+    const params = {
+     hadits: dataHaditsType,
+     page: page,
+     search: dataSearch,
+   };
+    setCurrentPage(page) 
+    getHadits(params);
+    
+  }
 
   const templateModalSearch = () => {
     return (
@@ -151,7 +177,7 @@ function HomePage() {
     );
   };
 
-  if (!data) return <p>No hadits data</p>;
+  if (!dataHadits) return <p>No hadits data</p>;
 
   return (
     <>
@@ -254,17 +280,31 @@ function HomePage() {
           </div>
 
           <div className={styles.home_hadits_popular}>
-            {data.data.map((hadits, i) => (
-              <div className={styles.home_hadits_popular_item} key={i}>
-                <div className={styles.home_hadits_popular_item_type}>
-                  {textConverter(hadits.kitab, "_")}
+            {dataHadits.data.map((hadits, i) => (
+              <Link key={i} href={{
+                  pathname: 'detail-hadits',
+                  query: { haditsType: hadits.kitab, id: hadits.id },
+                }}>
+                <div className={styles.home_hadits_popular_item} >
+                  <div className={styles.home_hadits_popular_item_type}>
+                    {textConverter(hadits.kitab, "_")}
+                  </div>
+                  <div className={styles.home_hadits_popular_item_title}>
+                    {hadits.terjemah}
+                  </div>
                 </div>
-                <div className={styles.home_hadits_popular_item_title}>
-                  {hadits.terjemah}
-                </div>
-              </div>
+              </Link>
             ))}
           </div>
+
+          <div className="pagination"> 
+            <a  onClick={ (e) => handleChangePagination(currentPage, 'previous') }>&laquo;</a>
+            <a  onClick={ (e) => handleChangePagination(currentPage, 'next')}>&raquo;</a>
+          </div>
+          <div className="pagination-info">
+            Halaman ke {currentPage}
+          </div>
+
         </div>
       )}
 

@@ -6,12 +6,21 @@ const sunan_tirmidzi = require("../services/sunan_tirmidzi");
 router.get("/", async function (req, res, next) {
   try {
     let params = {
-      page: req.params.page,
+      page: req.query.page,
       search: req.query.search
     }
     res.json(await sunan_tirmidzi.get(params));
   } catch (err) {
     console.error(`Error while getting Sunan Tirmidzi `, err.message);
+    next(err);
+  }
+});
+
+router.get("/:id", async function (req, res, next) {
+  try {
+    res.json(await sunan_tirmidzi.getDetailHadits(req.params.id));
+  } catch (err) {
+    console.error(`Error while getting Sunan Tirmidzi detail`, err.message);
     next(err);
   }
 });
