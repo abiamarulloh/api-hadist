@@ -143,6 +143,10 @@
   padding: 10px;
 }
 
+.home_action_filter_input_item {
+  text-align: center;
+}
+
 .home_action_filter_input input {
   height: 40px;
   border: 1px solid #eaeaea;

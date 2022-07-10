@@ -19,8 +19,11 @@ function HomePage() {
     "hadits tentang menikah",
     "hadits tentang bercerai",
   ];
-  const [isShowModalSearch, setShowModalSearch] = useState(false);
+  const [isShowModalSearchText, setShowModalSearchText] = useState(false);
+  const [isShowModalSearchVoice, setShowModalSearchVoice] = useState(false);
+  const [isStartRecording, setStartRecording] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [recognition, setRecognition] = useState();
 
   const listHadits = [
     {
@@ -40,6 +43,18 @@ function HomePage() {
   useEffect(() => {
     setLoading(true);
     handlehaditsOnLoad();
+
+   if ("webkitSpeechRecognition" in window) {
+      // Speech Recognition Stuff goes here
+      let speechRecognition = new webkitSpeechRecognition();
+      speechRecognition.continuous = true;
+      speechRecognition.interimResults = false;
+      speechRecognition.lang = "id"
+      setRecognition(speechRecognition);
+    } else {
+      console.log("Speech Recognition Not Available")
+    }
+
   }, []);
 
   const handlehaditsOnLoad = () => {
@@ -75,7 +90,8 @@ function HomePage() {
       .then((data) => {
         setDataHadits(data);
         setLoading(false);
-        setShowModalSearch(false);
+        setShowModalSearchText(false);
+        setShowModalSearchVoice(false);
       });
   };
 
@@ -119,7 +135,7 @@ function HomePage() {
   };
 
   const handleCloseSubmit = () => {
-    setShowModalSearch(false);
+    setShowModalSearchText(false);
     setSearch("");
     const params = {
       hadits: dataHaditsType,
@@ -127,11 +143,6 @@ function HomePage() {
       search: "",
     };
     getHadits(params);
-    window.scrollTo({
-      top: window.innerHeight,
-      left: 100,
-      behavior: 'smooth'
-    });
   };
 
   const handleChangePagination = (page, type) => {
@@ -148,10 +159,9 @@ function HomePage() {
    };
     setCurrentPage(page) 
     getHadits(params);
-    
   }
 
-  const templateModalSearch = () => {
+  const templateModalSearchText = () => {
     return (
       <div className={`${styles.home_action_filter_search}`}>
         <div
@@ -177,6 +187,57 @@ function HomePage() {
     );
   };
 
+  const startRecording = (e) => {
+    setStartRecording(true)
+    recognition.start();
+  }
+
+  const stopRecording = (e) => {
+    setStartRecording(false)
+    recognition.stop();
+
+    recognition.onresult = function(event) {
+      let result = event.results[0][0].transcript
+      const params = {
+        hadits: dataHaditsType,
+        page: 1,
+        search: result,
+      };
+      getHadits(params);
+      setSearch(result)
+      window.scrollTo({
+        top: window.innerHeight + 200,
+        left: 100,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  const templateModalSearchVoice = () => {
+    return (
+      <div className={`${styles.home_action_filter_search}`}>
+        <div
+          className={`${styles.home_action_filter_item} ${styles.home_action_filter_item_search}`}
+        >
+          <div className={styles.home_action_filter_wrap_item}>
+            <div className={styles.home_text_title_search}>
+              Cari hadits dengan suara berdasarkan periwayat! (
+              {textConverter(dataHaditsType, "-")})
+            </div>
+            <div className={styles.home_action_filter_input}>
+              <div className={styles.home_action_filter_input_item}>
+                {
+                  !isStartRecording ? <FontAwesomeIcon icon="fas-regular fa-microphone" size="3x" onClick={(e) => startRecording(e)}/> :  <FontAwesomeIcon icon="fas-thin fa-record-vinyl" size="3x" beatFade onClick={(e) => stopRecording(e)}/>
+                }
+              </div>
+              <button onClick={(e) => handleCloseSubmit(e)}>Batal</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   if (!dataHadits) return <p>No hadits data</p>;
 
   return (
@@ -189,7 +250,7 @@ function HomePage() {
 
           <div className={styles.home_training}>
             <div
-              className={`${styles.home_training_item} ${styles.home_training_item_active}`}
+              className={`${styles.home_training_item}`}
             >
               <div className={styles.home_training_item_icon}>
                 <FontAwesomeIcon
@@ -210,7 +271,8 @@ function HomePage() {
               </div>
             </div>
 
-            <div className={`${styles.home_training_item} `}>
+            <div className={`${styles.home_training_item} `} 
+              onClick={(e) => setShowModalSearchVoice(true)}>
               <div className={styles.home_training_item_icon}>
                 <FontAwesomeIcon
                   icon="fas-solid fa-microphone-lines"
@@ -224,7 +286,7 @@ function HomePage() {
 
             <div
               className={`${styles.home_training_item}`}
-              onClick={(e) => setShowModalSearch(true)}
+              onClick={(e) => setShowModalSearchText(true)}
             >
               <div className={styles.home_training_item_icon}>
                 <FontAwesomeIcon icon="fas-solid fa-file-lines" size="lg" />
@@ -308,7 +370,8 @@ function HomePage() {
         </div>
       )}
 
-      {isShowModalSearch == true ? templateModalSearch() : ""}
+      {isShowModalSearchText == true ? templateModalSearchText() : ""}
+      {isShowModalSearchVoice == true ? templateModalSearchVoice() : ""}
     </>
   );
 }
