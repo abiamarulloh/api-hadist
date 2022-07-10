@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var Url string = "https://hadist-app-backend.herokuapp.com/api/hadist/shahih-muslim?search="
+var Url string = "https://api.hadits-app.amarabi.com/api/hadist/shahih-muslim?search="
 
 type ResponseApi struct {
 	Data []Hadits    `json:"data"`
