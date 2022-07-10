@@ -4,8 +4,8 @@ module.exports = () => {
       {
         source: "/api/:path*",
         // destination: "http://localhost:3000/api/:path*", // for local
-        destination: "https://hadist-app-backend.herokuapp.com/api/:path*", // for prod heroku
-        // destination: "https://api.hadits-app.amarabi.com/api/:path*", // for prod amarabi.com
+        // destination: "https://hadist-app-backend.herokuapp.com/api/:path*", // for prod heroku
+        destination: "https://api.hadits-app.amarabi.com/api/:path*", // for prod amarabi.com
       },
     ];
   };
