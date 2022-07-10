@@ -4,10 +4,10 @@ const config = {
   db: {
     /* don't expose password or any sensitive info, done only for demo */
     // Localhost
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "apihadits",
+    // host: "localhost",
+    // user: "root",
+    // password: "",
+    // database: "apihadits",
     
     // Heroku
     // host: "us-cdbr-east-05.cleardb.net",
@@ -16,10 +16,10 @@ const config = {
     // database: "heroku_2742ddf698ff267",
 
     // Server amarabi.com
-    // host: "localhost",
-    // user: "amarabic_root",
-    // password: "h9T3@BNA5JLC9ky",
-    // database: "amarabic_hadits",
+    host: "localhost",
+    user: "amarabic_root",
+    password: "h9T3@BNA5JLC9ky",
+    database: "amarabic_hadits",
   },
   listPerPage: 10,
 };
