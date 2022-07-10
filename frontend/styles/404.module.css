@@ -1,8 +1,0 @@
-.wrap404 {
-    height: calc(100vh - 20vh);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
