@@ -50,13 +50,13 @@ func main() {
 		if userCommand != "" {
 			// log.Println(userText, "ut cmd")
 			if userCommand == "help" {
-				msg.Text = "I understand /sayhi and /status."
+				msg.Text = "Hai " + update.Message.From.FirstName + " :) " + "\n\n" + qa.MainMenu
 			} else if userCommand == "sayhi" {
-				msg.Text = "Hi :)"
+				msg.Text = "Hai " + update.Message.From.FirstName + " :) " + "\n\n" + qa.MainMenu
 			} else if userCommand == "status" {
-				msg.Text = "I'm ok."
+				msg.Text = "Hai " + update.Message.From.FirstName + " :) " + "\n\n" + qa.MainMenu
 			} else {
-				msg.Text = "I don't know that command"
+				msg.Text = "Hai " + update.Message.From.FirstName + " :) " + "\n\n" + qa.MainMenu
 			}
 			if msg.Text == "" {
 				msg.Text = "Mohon maaf, saya belum mengerti apa yang kamu maksud, coba ketik 'hai' atau ketik 'menu' untuk melihat menu utama"
