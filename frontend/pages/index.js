@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from 'next/link';
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "../styles/index.module.css";
 
@@ -44,17 +44,16 @@ function HomePage() {
     setLoading(true);
     handlehaditsOnLoad();
 
-   if ("webkitSpeechRecognition" in window) {
+    if ("webkitSpeechRecognition" in window) {
       // Speech Recognition Stuff goes here
       let speechRecognition = new webkitSpeechRecognition();
       speechRecognition.continuous = true;
       speechRecognition.interimResults = false;
-      speechRecognition.lang = "id"
+      speechRecognition.lang = "id";
       setRecognition(speechRecognition);
     } else {
-      console.log("Speech Recognition Not Available")
+      console.log("Speech Recognition Not Available");
     }
-
   }, []);
 
   const handlehaditsOnLoad = () => {
@@ -78,7 +77,7 @@ function HomePage() {
     window.scrollTo({
       top: window.innerHeight + 200,
       left: 100,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   };
 
@@ -104,7 +103,7 @@ function HomePage() {
 
     getHadits(params);
     setHaditsType(haditsType);
-    setCurrentPage(1)
+    setCurrentPage(1);
   };
 
   const changeHaditsSuggestion = (suggestion) => {
@@ -146,20 +145,20 @@ function HomePage() {
   };
 
   const handleChangePagination = (page, type) => {
-    if(type === 'previous' && page > 1) {
-      page--
-    } else if(type === 'next') {
-      page++
+    if (type === "previous" && page > 1) {
+      page--;
+    } else if (type === "next") {
+      page++;
     }
-    
+
     const params = {
-     hadits: dataHaditsType,
-     page: page,
-     search: dataSearch,
-   };
-    setCurrentPage(page) 
+      hadits: dataHaditsType,
+      page: page,
+      search: dataSearch,
+    };
+    setCurrentPage(page);
     getHadits(params);
-  }
+  };
 
   const templateModalSearchText = () => {
     return (
@@ -188,30 +187,30 @@ function HomePage() {
   };
 
   const startRecording = (e) => {
-    setStartRecording(true)
+    setStartRecording(true);
     recognition.start();
-  }
+  };
 
   const stopRecording = (e) => {
-    setStartRecording(false)
+    setStartRecording(false);
     recognition.stop();
 
-    recognition.onresult = function(event) {
-      let result = event.results[0][0].transcript
+    recognition.onresult = function (event) {
+      let result = event.results[0][0].transcript;
       const params = {
         hadits: dataHaditsType,
         page: 1,
         search: result,
       };
       getHadits(params);
-      setSearch(result)
+      setSearch(result);
       window.scrollTo({
         top: window.innerHeight + 200,
         left: 100,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
-    }
-  }
+    };
+  };
 
   const templateModalSearchVoice = () => {
     return (
@@ -226,17 +225,28 @@ function HomePage() {
             </div>
             <div className={styles.home_action_filter_input}>
               <div className={styles.home_action_filter_input_item}>
-                {
-                  !isStartRecording ? <FontAwesomeIcon icon="fas-regular fa-microphone" size="3x" onClick={(e) => startRecording(e)}/> :  <FontAwesomeIcon icon="fas-thin fa-record-vinyl" size="3x" beatFade onClick={(e) => stopRecording(e)}/>
-                }
+                {!isStartRecording ? (
+                  <FontAwesomeIcon
+                    icon="fas-regular fa-microphone"
+                    size="3x"
+                    onClick={(e) => startRecording(e)}
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon="fas-thin fa-record-vinyl"
+                    size="3x"
+                    beatFade
+                    onClick={(e) => stopRecording(e)}
+                  />
+                )}
               </div>
               <button onClick={(e) => handleCloseSubmit(e)}>Batal</button>
             </div>
           </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 
   if (!dataHadits) return <p>No hadits data</p>;
 
@@ -249,9 +259,7 @@ function HomePage() {
           <div className={styles.home_greeting}>Assalamualaikum Akhi/Ukhti</div>
 
           <div className={styles.home_training}>
-            <div
-              className={`${styles.home_training_item}`}
-            >
+            <div className={`${styles.home_training_item}`}>
               <div className={styles.home_training_item_icon}>
                 <FontAwesomeIcon
                   icon="fas-regular fa-book-open-reader"
@@ -259,20 +267,27 @@ function HomePage() {
                 />
               </div>
               <div className={styles.home_training_item_title}>
-                Membaca hadits
+                Membaca dan mendengarkan hadits
               </div>
             </div>
-            <div className={`${styles.home_training_item}`}>
-              <div className={styles.home_training_item_icon}>
-                <FontAwesomeIcon icon="fas-regular fa-circle-play" size="lg" />
+            <Link href={`http://t.me/hadist_app_bot`}>
+              <div className={`${styles.home_training_item}`}>
+                <div className={styles.home_training_item_icon}>
+                  <FontAwesomeIcon
+                    icon="fas-solid fa-mobile-screen-button"
+                    size="lg"
+                  />
+                </div>
+                <div className={styles.home_training_item_title}>
+                  Baca hadits di telegram
+                </div>
               </div>
-              <div className={styles.home_training_item_title}>
-                Mendengarkan hadits
-              </div>
-            </div>
+            </Link>
 
-            <div className={`${styles.home_training_item} `} 
-              onClick={(e) => setShowModalSearchVoice(true)}>
+            <div
+              className={`${styles.home_training_item} `}
+              onClick={(e) => setShowModalSearchVoice(true)}
+            >
               <div className={styles.home_training_item_icon}>
                 <FontAwesomeIcon
                   icon="fas-solid fa-microphone-lines"
@@ -343,11 +358,14 @@ function HomePage() {
 
           <div className={styles.home_hadits_popular}>
             {dataHadits.data.map((hadits, i) => (
-              <Link key={i} href={{
-                  pathname: 'detail-hadits',
+              <Link
+                key={i}
+                href={{
+                  pathname: "detail-hadits",
                   query: { haditsType: hadits.kitab, id: hadits.id },
-                }}>
-                <div className={styles.home_hadits_popular_item} >
+                }}
+              >
+                <div className={styles.home_hadits_popular_item}>
                   <div className={styles.home_hadits_popular_item_type}>
                     {textConverter(hadits.kitab, "_")}
                   </div>
@@ -359,14 +377,15 @@ function HomePage() {
             ))}
           </div>
 
-          <div className="pagination"> 
-            <a  onClick={ (e) => handleChangePagination(currentPage, 'previous') }>&laquo;</a>
-            <a  onClick={ (e) => handleChangePagination(currentPage, 'next')}>&raquo;</a>
+          <div className="pagination">
+            <a onClick={(e) => handleChangePagination(currentPage, "previous")}>
+              &laquo;
+            </a>
+            <a onClick={(e) => handleChangePagination(currentPage, "next")}>
+              &raquo;
+            </a>
           </div>
-          <div className="pagination-info">
-            Halaman ke {currentPage}
-          </div>
-
+          <div className="pagination-info">Halaman ke {currentPage}</div>
         </div>
       )}
 

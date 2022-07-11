@@ -9,7 +9,9 @@ library.add(fas);
 export default function App({ Component, pageProps }) {
   return (
     <>
-      {pageProps.isLoading ? '' : 
+      {pageProps.isLoading ? (
+        ""
+      ) : (
         <div className="app-wrapper">
           <Header />
           <div className="main">
@@ -17,7 +19,7 @@ export default function App({ Component, pageProps }) {
           </div>
           <Footer />
         </div>
-      }
+      )}
     </>
   );
 }
